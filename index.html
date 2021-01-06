@@ -1,78 +1,64 @@
 
-<html>
+<!-- 4 : 15 is a skyscrapper -->
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
-    <meta name="application-name" content="SM Overview Map" />
-    <meta name="author" content="The1Killer" />
-    <meta name="generator" content="https://github.com/the1killer/sm_overview_ahk"/>
-    <link rel="icon" href="./favicon.png" type="image/png" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-    <style>
-        html, body, #map {
-          width:100%;
-          height:100%;
-          margin:0;
-          padding:0;
-          background-color: #B0B0B0
-        }
-      </style>
+  <link rel="icon" href="./logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="script.js" defer></script>
+  <link href="styles.css" rel="stylesheet">
+  <title>Evan's KSP World</title>
+  
 </head>
 <body>
-    <div id="map"></div>
-    <script src="libs/leaflet-hash.js"></script>
-    <script type="text/javascript">
-        var minZoom = 0
-        var maxZoom = 5
-        // create the map
-        var map = L.map("map", {
-            crs: L.CRS.Simple,
-            minZoom: minZoom,
-            maxZoom: maxZoom,
-        })
-        map.attributionControl.addAttribution("<a target='_new' href='https://github.com/the1killer/sm_overview_ahk'>sm_overview_ahk By The1Killer</a>")
-        try {
-            var hash = new L.Hash(map);
-            if(window.location.hash == null || window.location.hash == "") {
-                // map.setView([0,0],2);
-                map.setView([-560,-540],2);
-            }
-        } catch (error) {
-            // map.setView([0,0],2);
-            map.setView([-560,-540],2);
-        }
-        L.tileLayer('./img/{x},{y}.jpg', {
-            noWrap: true,
-            maxNativeZoom: 1,
-            minNativeZoom: 1,
-            tileSize:128,
-            // tileSize: 1000
-        }).addTo(map)
+  <ul class="tabs">
+    <li data-tab-target="#home" class="active tab">Home</li>
+    <li data-tab-target="#screenshots" class="tab">Screenshots</li>
+    <li data-tab-target="#about" class="tab">About</li>
+    <li data-tab-target="#test" class="tab">test</li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" data-tab-content class="active">
+      <h1 style="text-align:center" >Home</h1>
+      <h2 style="text-align:center" >This is the home</h2>
+	  <br>
+		<img class="center-corrected" src="logo.png">
+	  <br>
+	  <br>
+	  <br>
+      <h2 style="text-align:center" >nothing much here</h2>
+    </div>
+    <div id="screenshots" data-tab-content>
+      <h1 style="text-align:center" >Screenshots</h1>
+      <h2 style="text-align:center">These are Screenshots that I took that I think are beautiful!</h2>
+	  <div>
+		<img class="center-fit" src="Screenshots\screenshot_1.jpg">
+		<h2 style="text-align:center" >Accidentally Deorbit!</h2>
+		<h3 style="text-align:center" >This Station was meant to air drop package down to Kerbin, but on the first launch it didnt have enough fuel!</h3>
+		
+		<img class="center-fit" src="Screenshots\screenshot_2.jpg">
+		<h2 style="text-align:center" >Asteroid Extractor</h2>
+		<h3 style="text-align:center" >Small Station that would extract resources out of asteroids, then go into Kerbin orbit to drop off resources collected.</h3>
+		
+	  </div>
+    </div>
+    <div id="about" data-tab-content>
+      <h1 style="text-align:center" >About</h1>
+      <h2 style="text-align:center" >This Page is just all about my ksp,</h2>
+      <h2 style="text-align:center" >like Screenshots, Mods, Ideas, Vessel Concepts, etc. </h2>
+    </div>
+	<div id="test" data-tab-content>
+			<label style="text-align:center" for="pswd">Enter your password: </label>
+			<input type="password" id="pswd">
+			<input type="button" value="Submit" onclick="checkPswd();" />
+    </div>
+	
+  </div>
 
 
-        
-        map.on('click', function(e) {
-            // console.log(JSON.stringify(e));
-            // console.log(getTileURL(e.latlng.lat, e.latlng.lng, map.getZoom()));
-            let xscalar = 5.02;
-            let yscalar = 5.83;
-            console.log("lnglat:     ", Math.floor(e.latlng.lng),Math.floor(e.latlng.lat));
-            console.log("scaled ll:  ", Math.floor(e.latlng.lng * xscalar),Math.floor(e.latlng.lat * yscalar));
-            console.log("layer point:", Math.floor(e.layerPoint.x),Math.floor(e.layerPoint.y));
-        });
-
-        // .toRad() fix
-        // from: http://stackoverflow.com/q/5260423/1418878
-        if (typeof(Number.prototype.toRad) === "undefined") {
-            Number.prototype.toRad = function() {
-                return this * Math.PI / 180;
-            }
-        }
-        function getTileURL(lat, lon, zoom) {
-            var xtile = parseInt(Math.floor( (lon + 180) / 360 * (1<<zoom) ));
-            var ytile = parseInt(Math.floor( (1 - Math.log(Math.tan(lat.toRad()) + 1 / Math.cos(lat.toRad())) / Math.PI) / 2 * (1<<zoom) ));
-            return "" + zoom + "/" + xtile + "/" + ytile;
-        }
-    </script>
 </body>
 </html>
